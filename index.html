@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>66 Days Study Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background:#0f172a;
+      color:#e5e7eb;
+      margin:0;
+      padding:20px;
+    }
+    h1{
+      text-align:center;
+      margin-bottom:10px;
+    }
+    .plan{
+      max-width:1200px;
+      margin:0 auto 20px auto;
+      background:#020617;
+      padding:15px;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+    .plan p{
+      line-height:1.6;
+      font-size:14px;
+      color:#cbd5f5;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:auto;
+      background:#020617;
+      border-radius:12px;
+      overflow:hidden;
+    }
+    th,td{
+      border:1px solid #1e293b;
+      padding:8px;
+      text-align:center;
+      font-size:13px;
+    }
+    th{
+      background:#1e293b;
+      font-weight:600;
+    }
+    td input, td textarea{
+      width:100%;
+      background:transparent;
+      border:none;
+      color:#e5e7eb;
+      resize:vertical;
+      font-size:13px;
+    }
+    td textarea{min-height:40px;}
+    .done{
+      background:#022c22;
+    }
+    .rest{
+      background:#1f2937;
+      color:#9ca3af;
+    }
+    .footer{
+      text-align:center;
+      margin-top:15px;
+      font-size:12px;
+      color:#94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<h1>66 Days Study Tracker (21 Jan – 28 March)</h1>
+
+<div class="plan">
+  <p><b>Plan Summary:</b></p>
+  <p>• Total days: <b>66</b></p>
+  <p>• First phase: 12 chapters in 12 days</p>
+  <p>• Next: Full book in 6-day cycles + Sunday revision (6 weeks = 42 days)</p>
+  <p>• Last 8 days: 7 days full revision + <b>27 March = Rest day</b></p>
+</div>
+
+<table id="tracker">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Date</th>
+      <th>Plan (Chapter / Revision / Mock)</th>
+      <th>What I Studied Today</th>
+      <th>Achievement / Notes</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<div class="footer">
+  Discipline > Motivation • Daily entry bharna mandatory
+</div>
+
+<script>
+  const startDate = new Date(2026,0,21); // 21 Jan 2026
+  const endDate   = new Date(2026,2,28); // 28 March 2026
+
+  const tbody = document.querySelector('#tracker tbody');
+  let dayCount = 1;
+
+  for(let d = new Date(startDate); d <= endDate; d.setDate(d.getDate()+1)){
+    const tr = document.createElement('tr');
+
+    const dateStr = d.toLocaleDateString('en-GB',{
+      day:'2-digit',month:'short',year:'numeric'
+    });
+
+    tr.innerHTML = `
+      <td>${dayCount}</td>
+      <td>${dateStr}</td>
+      <td><input placeholder="Chapter / Revision / Mock" /></td>
+      <td><textarea placeholder="What Today Study"></textarea></td>
+      <td><textarea placeholder="What Done / What Learn"></textarea></td>
+      <td><input placeholder="Done / Pending" /></td>
+    `;
+
+    // 27 March ko rest day mark
+    if(d.getDate()===27 && d.getMonth()===2){
+      tr.classList.add('rest');
+      tr.children[2].innerHTML = 'REST DAY';
+      tr.children[5].innerHTML = 'Rest';
+    }
+
+    tbody.appendChild(tr);
+    dayCount++;
+  }
+</script>
+
+</body>
+</html>
